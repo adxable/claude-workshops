@@ -7,6 +7,7 @@ import {
 	HelpCircle,
 	Sparkles,
 	Terminal,
+	TrendingUp,
 	Workflow,
 } from 'lucide-react'
 import { Suspense } from 'react'
@@ -44,6 +45,12 @@ const tabs: TabConfig[] = [
 		label: 'Agents',
 		icon: Cpu,
 		description: 'Learn about specialized agents',
+	},
+	{
+		to: '/dashboard/learn/roi',
+		label: 'ROI',
+		icon: TrendingUp,
+		description: 'Compare time & cost savings',
 	},
 	{
 		to: '/dashboard/learn/quiz',
