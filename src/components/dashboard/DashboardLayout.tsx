@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { GraduationCap, Presentation, Sparkles, Zap } from 'lucide-react'
+import { GraduationCap, Presentation, Rocket, Sparkles, Zap } from 'lucide-react'
 import { Suspense } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { cn } from '../../lib/utils'
@@ -16,6 +16,12 @@ const tabs = [
 		label: 'Presentation',
 		icon: Presentation,
 		description: 'Workshop Slides',
+	},
+	{
+		to: '/dashboard/demo',
+		label: 'Live Demo',
+		icon: Rocket,
+		description: 'Build a Feature',
 	},
 ]
 

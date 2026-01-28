@@ -11,6 +11,7 @@ const LearnADX = lazy(() => import('./components/dashboard/LearnADX'))
 const PresentationView = lazy(
 	() => import('./components/dashboard/PresentationView'),
 )
+const LiveDemo = lazy(() => import('./components/dashboard/LiveDemo'))
 
 // Learn sub-sections
 const AgenticIntro = lazy(() => import('./components/learn/AgenticIntro'))
@@ -103,6 +104,9 @@ function App() {
 
 					{/* Presentation */}
 					<Route path="presentation" element={<PresentationView />} />
+
+					{/* Live Demo */}
+					<Route path="demo" element={<LiveDemo />} />
 				</Route>
 
 				<Route path="/slide/:id" element={<SlideRoute />} />
