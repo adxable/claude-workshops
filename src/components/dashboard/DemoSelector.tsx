@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
 	Check,
 	Code2,
@@ -313,8 +313,7 @@ function DemoCard({
 	const Icon = option.icon
 
 	return (
-		<motion.div
-			layout
+		<div
 			className={cn(
 				'rounded-2xl border transition-all cursor-pointer overflow-hidden',
 				`bg-gradient-to-br ${option.gradient} ${option.borderColor}`,
@@ -372,7 +371,7 @@ function DemoCard({
 
 				{/* Features Preview */}
 				<div className="space-y-2">
-					{option.features.slice(0, isExpanded ? undefined : 3).map((feature, i) => (
+					{option.features.slice(0, 3).map((feature, i) => (
 						<div key={i} className="flex items-center gap-2 text-sm">
 							<Star className="w-3 h-3 text-purple-400 flex-shrink-0" />
 							<span className="text-muted-foreground">{feature}</span>
@@ -387,71 +386,89 @@ function DemoCard({
 			</div>
 
 			{/* Expanded Content */}
-			{isExpanded && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					className="border-t border-white/10"
-				>
-					{/* Tech Highlights */}
-					<div className="p-6 border-b border-white/10">
-						<h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-							<Code2 className="w-4 h-4 text-purple-400" />
-							Technical Highlights
-						</h4>
-						<div className="flex flex-wrap gap-2">
-							{option.techHighlights.map((tech, i) => (
-								<span
-									key={i}
-									className="px-2 py-1 rounded bg-purple-500/20 text-xs text-purple-300"
+			<AnimatePresence>
+				{isExpanded && (
+					<motion.div
+						initial={{ height: 0, opacity: 0 }}
+						animate={{ height: 'auto', opacity: 1 }}
+						exit={{ height: 0, opacity: 0 }}
+						transition={{ duration: 0.3, ease: 'easeInOut' }}
+						className="overflow-hidden"
+					>
+						<div className="border-t border-white/10">
+							{/* Additional Features */}
+							{option.features.length > 3 && (
+								<div className="px-6 pt-4 space-y-2">
+									{option.features.slice(3).map((feature, i) => (
+										<div key={i} className="flex items-center gap-2 text-sm">
+											<Star className="w-3 h-3 text-purple-400 flex-shrink-0" />
+											<span className="text-muted-foreground">{feature}</span>
+										</div>
+									))}
+								</div>
+							)}
+
+							{/* Tech Highlights */}
+							<div className="p-6 border-b border-white/10">
+								<h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+									<Code2 className="w-4 h-4 text-purple-400" />
+									Technical Highlights
+								</h4>
+								<div className="flex flex-wrap gap-2">
+									{option.techHighlights.map((tech, i) => (
+										<span
+											key={i}
+											className="px-2 py-1 rounded bg-purple-500/20 text-xs text-purple-300"
+										>
+											{tech}
+										</span>
+									))}
+								</div>
+							</div>
+
+							{/* Prompt Section */}
+							<div className="p-6">
+								<div className="flex items-center justify-between mb-3">
+									<h4 className="text-sm font-semibold text-white flex items-center gap-2">
+										<Sparkles className="w-4 h-4 text-amber-400" />
+										Ready-to-Use Prompt
+									</h4>
+									<CopyButton text={option.prompt} />
+								</div>
+								<div className="relative">
+									<pre className="p-4 rounded-xl bg-black/50 border border-white/10 text-xs text-muted-foreground overflow-x-auto max-h-[300px] overflow-y-auto whitespace-pre-wrap">
+										{option.prompt}
+									</pre>
+								</div>
+							</div>
+
+							{/* Action Buttons */}
+							<div className="p-6 pt-0 flex items-center justify-between">
+								<button
+									onClick={(e) => {
+										e.stopPropagation()
+										onToggle()
+									}}
+									className="text-sm text-muted-foreground hover:text-white transition-colors"
 								>
-									{tech}
-								</span>
-							))}
+									Collapse
+								</button>
+								<a
+									href={`https://${option.api.url}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									onClick={(e) => e.stopPropagation()}
+									className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors"
+								>
+									View API Docs
+									<ExternalLink className="w-3 h-3" />
+								</a>
+							</div>
 						</div>
-					</div>
-
-					{/* Prompt Section */}
-					<div className="p-6">
-						<div className="flex items-center justify-between mb-3">
-							<h4 className="text-sm font-semibold text-white flex items-center gap-2">
-								<Sparkles className="w-4 h-4 text-amber-400" />
-								Ready-to-Use Prompt
-							</h4>
-							<CopyButton text={option.prompt} />
-						</div>
-						<div className="relative">
-							<pre className="p-4 rounded-xl bg-black/50 border border-white/10 text-xs text-muted-foreground overflow-x-auto max-h-[300px] overflow-y-auto">
-								{option.prompt}
-							</pre>
-						</div>
-					</div>
-
-					{/* Action Buttons */}
-					<div className="p-6 pt-0 flex items-center justify-between">
-						<button
-							onClick={(e) => {
-								e.stopPropagation()
-								onToggle()
-							}}
-							className="text-sm text-muted-foreground hover:text-white transition-colors"
-						>
-							Collapse
-						</button>
-						<a
-							href={`https://${option.api.url}`}
-							target="_blank"
-							rel="noopener noreferrer"
-							onClick={(e) => e.stopPropagation()}
-							className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors"
-						>
-							View API Docs
-							<ExternalLink className="w-3 h-3" />
-						</a>
-					</div>
-				</motion.div>
-			)}
-		</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+		</div>
 	)
 }
 
