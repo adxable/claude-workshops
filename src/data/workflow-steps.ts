@@ -28,18 +28,6 @@ export interface WorkflowStep {
 
 export const workflowSteps: WorkflowStep[] = [
 	{
-		id: 'setup',
-		title: 'Setup',
-		description: 'Configure project standards',
-		command: '/setup',
-		icon: 'Settings',
-		color: 'indigo',
-		details:
-			'Run once per project. Detects your stack (React, Zustand, Tailwind, etc.) and creates configuration files in .claude/config/ that enable context-aware assistance.',
-		output:
-			'Creates .claude/config/frontend-guidelines.json, code-quality.json, project-structure.json',
-	},
-	{
 		id: 'plan',
 		title: 'Plan',
 		description: 'Research codebase and create implementation plan',

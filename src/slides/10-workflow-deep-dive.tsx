@@ -9,7 +9,6 @@ import {
 	GitCommit,
 	GitPullRequest,
 	Lightbulb,
-	Settings,
 	Terminal,
 	Wrench,
 	Zap,
@@ -18,7 +17,6 @@ import { useState } from 'react'
 import { colorMap, workflowSteps } from '../data/workflow-steps'
 
 const iconMap = {
-	Settings,
 	Lightbulb,
 	Code,
 	Wrench,
@@ -29,7 +27,7 @@ const iconMap = {
 }
 
 export default function WorkflowDeepDiveSlide() {
-	const [expandedStep, setExpandedStep] = useState<string | null>('setup')
+	const [expandedStep, setExpandedStep] = useState<string | null>('plan')
 
 	return (
 		<div className="space-y-6 max-w-5xl mx-auto">
@@ -44,7 +42,7 @@ export default function WorkflowDeepDiveSlide() {
 					<span className="text-sm font-medium">Deep Dive</span>
 				</div>
 				<h2 className="text-4xl md:text-5xl font-bold mb-2">
-					The <span className="text-gradient">8-Phase</span> Pipeline
+					The <span className="text-gradient">7-Phase</span> Pipeline
 				</h2>
 				<p className="text-muted-foreground">
 					Click each phase to understand what happens behind the scenes

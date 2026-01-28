@@ -97,13 +97,6 @@ export const slides: SlideConfig[] = [
 	{
 		id: 13,
 		path: '/slide/13',
-		title: 'Best Practices',
-		section: 'Tips',
-		component: lazy(() => import('./08-best-practices')),
-	},
-	{
-		id: 14,
-		path: '/slide/14',
 		title: 'Q&A',
 		section: 'Closing',
 		component: lazy(() => import('./09-qa')),

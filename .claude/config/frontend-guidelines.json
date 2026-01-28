@@ -1,0 +1,39 @@
+{
+  "detected": {
+    "state": null,
+    "serverState": null,
+    "forms": null,
+    "styling": "tailwindcss",
+    "ui": ["lucide-react", "framer-motion"],
+    "router": "react-router-dom"
+  },
+  "strictness": "strict",
+  "rules": {
+    "cnHelper": true,
+    "cvaForVariants": true,
+    "tailwindMerge": true,
+    "framerMotionPatterns": true
+  },
+  "patterns": {
+    "styling": {
+      "useClsx": true,
+      "useTailwindMerge": true,
+      "useCVA": "for component variants",
+      "cnLocation": "src/lib/utils.ts"
+    },
+    "components": {
+      "preferFunctionComponents": true,
+      "useForwardRef": "when needed for refs",
+      "exportDefault": false
+    },
+    "routing": {
+      "library": "react-router-dom@7",
+      "useLoaderData": "when applicable"
+    }
+  },
+  "react19": {
+    "useTransition": "for non-urgent updates",
+    "useDeferredValue": "for expensive computations",
+    "useOptimistic": "for optimistic UI"
+  }
+}

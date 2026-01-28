@@ -1,0 +1,18 @@
+{
+  "projectType": "prototype",
+  "teamSize": "solo",
+  "strictness": "strict",
+  "abstractionRule": "rule-of-three",
+  "principles": {
+    "singleResponsibility": true,
+    "dependencyInversion": true,
+    "noGodClasses": true
+  },
+  "tooling": {
+    "biome": true,
+    "typescript": true,
+    "eslint": false
+  },
+  "maxFileLines": 300,
+  "maxFunctionComplexity": 10
+}

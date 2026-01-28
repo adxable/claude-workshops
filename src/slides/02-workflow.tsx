@@ -8,14 +8,12 @@ import {
 	GitPullRequest,
 	Lightbulb,
 	Rocket,
-	Settings,
 	Wrench,
 } from 'lucide-react'
 import { useState } from 'react'
 import { colorMap, workflowSteps } from '../data/workflow-steps'
 
 const iconMap = {
-	Settings,
 	Lightbulb,
 	Code,
 	Wrench,

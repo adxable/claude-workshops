@@ -1,0 +1,25 @@
+{
+  "detected": {
+    "framework": "vite-react",
+    "organization": "type-based",
+    "naming": "kebab-case-files-PascalCase-components"
+  },
+  "enforced": {
+    "organization": "type-based",
+    "naming": "kebab-case-files-PascalCase-components",
+    "colocation": true
+  },
+  "structure": {
+    "components": "src/components/{domain}/{ComponentName}.tsx",
+    "hooks": "src/hooks/use{HookName}.ts",
+    "lib": "src/lib/{utility}.ts",
+    "data": "src/data/{dataName}.ts",
+    "slides": "src/slides/{nn}-{slug}.tsx"
+  },
+  "boundaries": {
+    "noCircularImports": true
+  },
+  "aliases": {
+    "@/*": "./src/*"
+  }
+}
