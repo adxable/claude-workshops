@@ -21,7 +21,7 @@ const tabs = [
 		to: '/dashboard/demo',
 		label: 'Live Demo',
 		icon: Rocket,
-		description: 'Build a Feature',
+		description: 'Choose & Build',
 	},
 ]
 

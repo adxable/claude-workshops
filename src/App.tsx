@@ -12,6 +12,7 @@ const PresentationView = lazy(
 	() => import('./components/dashboard/PresentationView'),
 )
 const LiveDemo = lazy(() => import('./components/dashboard/LiveDemo'))
+const DemoSelector = lazy(() => import('./components/dashboard/DemoSelector'))
 
 // Learn sub-sections
 const AgenticIntro = lazy(() => import('./components/learn/AgenticIntro'))
@@ -105,8 +106,11 @@ function App() {
 					{/* Presentation */}
 					<Route path="presentation" element={<PresentationView />} />
 
-					{/* Live Demo */}
-					<Route path="demo" element={<LiveDemo />} />
+					{/* Demo Selection - Choose feature to build */}
+					<Route path="demo" element={<DemoSelector />} />
+
+					{/* Legacy single prompt demo */}
+					<Route path="demo-legacy" element={<LiveDemo />} />
 				</Route>
 
 				<Route path="/slide/:id" element={<SlideRoute />} />
