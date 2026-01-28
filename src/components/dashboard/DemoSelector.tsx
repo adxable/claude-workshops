@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import {
 	Check,
+	ChevronLeft,
+	ChevronRight,
 	Code2,
 	Copy,
 	ExternalLink,
@@ -12,7 +14,7 @@ import {
 	TrendingUp,
 	Users,
 } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { cn } from '../../lib/utils'
 
 interface DemoOption {
@@ -301,54 +303,67 @@ function CopyButton({ text }: { text: string }) {
 	)
 }
 
-function DemoCard({
+function CarouselCard({
 	option,
-	isExpanded,
-	onToggle,
+	isActive,
+	position,
+	onClick,
 }: {
 	option: DemoOption
-	isExpanded: boolean
-	onToggle: () => void
+	isActive: boolean
+	position: 'left' | 'center' | 'right'
+	onClick: () => void
 }) {
 	const Icon = option.icon
-	const cardRef = useRef<HTMLDivElement>(null)
 
-	const handleCollapse = () => {
-		onToggle()
-		// Scroll to card after collapse animation starts
-		setTimeout(() => {
-			cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-		}, 50)
+	const variants = {
+		left: { x: '-75%', scale: 0.8, opacity: 0.5, zIndex: 1 },
+		center: { x: '0%', scale: 1, opacity: 1, zIndex: 10 },
+		right: { x: '75%', scale: 0.8, opacity: 0.5, zIndex: 1 },
 	}
 
 	return (
-		<div
-			ref={cardRef}
+		<motion.div
 			className={cn(
-				'rounded-2xl border transition-all cursor-pointer overflow-hidden',
-				`bg-gradient-to-br ${option.gradient} ${option.borderColor}`,
-				isExpanded && 'ring-2 ring-purple-500/50',
+				'absolute left-1/2 top-0 w-[400px] -ml-[200px] cursor-pointer',
+				position !== 'center' && 'pointer-events-none',
 			)}
-			onClick={() => !isExpanded && onToggle()}
+			variants={variants}
+			initial={position}
+			animate={position}
+			transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+			onClick={onClick}
 		>
-			{/* Header - Always visible */}
-			<div className="p-6">
-				<div className="flex items-start justify-between mb-4">
-					<div className="flex items-center gap-4">
-						<div
-							className={cn(
-								'p-3 rounded-xl bg-black/30 border',
-								option.borderColor,
-							)}
-						>
-							<Icon className={cn('w-6 h-6', option.color)} />
-						</div>
-						<div>
-							<h3 className="text-xl font-bold text-white">{option.title}</h3>
-							<p className="text-sm text-muted-foreground">{option.subtitle}</p>
+			<div
+				className={cn(
+					'rounded-2xl border transition-all overflow-hidden h-full',
+					`bg-gradient-to-br ${option.gradient} ${option.borderColor}`,
+					isActive && 'ring-2 ring-purple-500/50',
+				)}
+			>
+				<div className="p-6">
+					{/* Header */}
+					<div className="flex items-start justify-between mb-4">
+						<div className="flex items-center gap-4">
+							<div
+								className={cn(
+									'p-3 rounded-xl bg-black/30 border',
+									option.borderColor,
+								)}
+							>
+								<Icon className={cn('w-8 h-8', option.color)} />
+							</div>
+							<div>
+								<h3 className="text-xl font-bold text-white">{option.title}</h3>
+								<p className="text-sm text-muted-foreground">
+									{option.subtitle}
+								</p>
+							</div>
 						</div>
 					</div>
-					<div className="flex flex-col items-end gap-2">
+
+					{/* Complexity & Time */}
+					<div className="flex items-center gap-2 mb-4">
 						<span
 							className={cn(
 								'px-2 py-1 rounded text-xs font-medium',
@@ -365,125 +380,149 @@ function DemoCard({
 							~{option.estimatedTime}
 						</span>
 					</div>
-				</div>
 
-				{/* API Badge */}
-				<div className="flex items-center gap-2 mb-4">
-					<span className="px-2 py-1 rounded bg-black/30 text-xs font-mono text-muted-foreground">
-						{option.api.url}
-					</span>
-					{!option.api.authRequired && (
-						<span className="px-2 py-1 rounded bg-green-500/20 text-xs text-green-400">
-							No Auth Required
+					{/* API Badge */}
+					<div className="flex items-center gap-2 mb-4">
+						<span className="px-2 py-1 rounded bg-black/30 text-xs font-mono text-muted-foreground">
+							{option.api.url}
 						</span>
-					)}
-				</div>
+						{!option.api.authRequired && (
+							<span className="px-2 py-1 rounded bg-green-500/20 text-xs text-green-400">
+								No Auth
+							</span>
+						)}
+					</div>
 
-				{/* Features Preview */}
-				<div className="space-y-2">
-					{option.features.slice(0, 3).map((feature, i) => (
+					{/* Features Preview */}
+					<div className="space-y-2">
+						{option.features.slice(0, 4).map((feature, i) => (
+							<div key={i} className="flex items-center gap-2 text-sm">
+								<Star className="w-3 h-3 text-purple-400 flex-shrink-0" />
+								<span className="text-muted-foreground truncate">{feature}</span>
+							</div>
+						))}
+						{option.features.length > 4 && (
+							<p className="text-xs text-purple-400">
+								+{option.features.length - 4} more...
+							</p>
+						)}
+					</div>
+
+					{/* Tech Highlights */}
+					<div className="mt-4 pt-4 border-t border-white/10">
+						<div className="flex flex-wrap gap-1">
+							{option.techHighlights.slice(0, 3).map((tech, i) => (
+								<span
+									key={i}
+									className="px-2 py-0.5 rounded bg-purple-500/20 text-xs text-purple-300"
+								>
+									{tech}
+								</span>
+							))}
+						</div>
+					</div>
+				</div>
+			</div>
+		</motion.div>
+	)
+}
+
+function ExpandedDetails({ option }: { option: DemoOption }) {
+	return (
+		<motion.div
+			initial={{ opacity: 0, y: 20 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 20 }}
+			transition={{ duration: 0.3 }}
+			className={cn(
+				'rounded-2xl border overflow-hidden',
+				`bg-gradient-to-br ${option.gradient} ${option.borderColor}`,
+			)}
+		>
+			{/* All Features */}
+			<div className="p-6 border-b border-white/10">
+				<h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+					<Star className="w-4 h-4 text-purple-400" />
+					All Features
+				</h4>
+				<div className="grid grid-cols-2 gap-2">
+					{option.features.map((feature, i) => (
 						<div key={i} className="flex items-center gap-2 text-sm">
 							<Star className="w-3 h-3 text-purple-400 flex-shrink-0" />
 							<span className="text-muted-foreground">{feature}</span>
 						</div>
 					))}
-					{!isExpanded && option.features.length > 3 && (
-						<p className="text-xs text-purple-400 mt-2">
-							+{option.features.length - 3} more features...
-						</p>
-					)}
 				</div>
 			</div>
 
-			{/* Expanded Content */}
-			<AnimatePresence>
-				{isExpanded && (
-					<motion.div
-						initial={{ height: 0, opacity: 0 }}
-						animate={{ height: 'auto', opacity: 1 }}
-						exit={{ height: 0, opacity: 0 }}
-						transition={{ duration: 0.3, ease: 'easeInOut' }}
-						className="overflow-hidden"
-					>
-						<div className="border-t border-white/10">
-							{/* Additional Features */}
-							{option.features.length > 3 && (
-								<div className="px-6 pt-4 space-y-2">
-									{option.features.slice(3).map((feature, i) => (
-										<div key={i} className="flex items-center gap-2 text-sm">
-											<Star className="w-3 h-3 text-purple-400 flex-shrink-0" />
-											<span className="text-muted-foreground">{feature}</span>
-										</div>
-									))}
-								</div>
-							)}
+			{/* Tech Highlights */}
+			<div className="p-6 border-b border-white/10">
+				<h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+					<Code2 className="w-4 h-4 text-purple-400" />
+					Technical Highlights
+				</h4>
+				<div className="flex flex-wrap gap-2">
+					{option.techHighlights.map((tech, i) => (
+						<span
+							key={i}
+							className="px-2 py-1 rounded bg-purple-500/20 text-xs text-purple-300"
+						>
+							{tech}
+						</span>
+					))}
+				</div>
+			</div>
 
-							{/* Tech Highlights */}
-							<div className="p-6 border-b border-white/10">
-								<h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-									<Code2 className="w-4 h-4 text-purple-400" />
-									Technical Highlights
-								</h4>
-								<div className="flex flex-wrap gap-2">
-									{option.techHighlights.map((tech, i) => (
-										<span
-											key={i}
-											className="px-2 py-1 rounded bg-purple-500/20 text-xs text-purple-300"
-										>
-											{tech}
-										</span>
-									))}
-								</div>
-							</div>
-
-							{/* Prompt Section */}
-							<div className="p-6">
-								<div className="flex items-center justify-between mb-3">
-									<h4 className="text-sm font-semibold text-white flex items-center gap-2">
-										<Sparkles className="w-4 h-4 text-amber-400" />
-										Ready-to-Use Prompt
-									</h4>
-									<CopyButton text={option.prompt} />
-								</div>
-								<div className="relative">
-									<pre className="p-4 rounded-xl bg-black/50 border border-white/10 text-xs text-muted-foreground overflow-x-auto max-h-[300px] overflow-y-auto whitespace-pre-wrap">
-										{option.prompt}
-									</pre>
-								</div>
-							</div>
-
-							{/* Action Buttons */}
-							<div className="p-6 pt-0 flex items-center justify-between">
-								<button
-									onClick={(e) => {
-										e.stopPropagation()
-										handleCollapse()
-									}}
-									className="text-sm text-muted-foreground hover:text-white transition-colors"
-								>
-									Collapse
-								</button>
-								<a
-									href={`https://${option.api.url}`}
-									target="_blank"
-									rel="noopener noreferrer"
-									onClick={(e) => e.stopPropagation()}
-									className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors"
-								>
-									View API Docs
-									<ExternalLink className="w-3 h-3" />
-								</a>
-							</div>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</div>
+			{/* Prompt Section */}
+			<div className="p-6">
+				<div className="flex items-center justify-between mb-3">
+					<h4 className="text-sm font-semibold text-white flex items-center gap-2">
+						<Sparkles className="w-4 h-4 text-amber-400" />
+						Ready-to-Use Prompt
+					</h4>
+					<div className="flex items-center gap-3">
+						<a
+							href={`https://${option.api.url}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex items-center gap-2 text-sm text-purple-400 hover:text-purple-300 transition-colors"
+						>
+							View API Docs
+							<ExternalLink className="w-3 h-3" />
+						</a>
+						<CopyButton text={option.prompt} />
+					</div>
+				</div>
+				<pre className="p-4 rounded-xl bg-black/50 border border-white/10 text-xs text-muted-foreground overflow-x-auto max-h-[250px] overflow-y-auto whitespace-pre-wrap">
+					{option.prompt}
+				</pre>
+			</div>
+		</motion.div>
 	)
 }
 
 export default function DemoSelector() {
-	const [expandedId, setExpandedId] = useState<string | null>(null)
+	const [activeIndex, setActiveIndex] = useState(0)
+
+	const goToPrev = () => {
+		setActiveIndex((prev) => (prev === 0 ? demoOptions.length - 1 : prev - 1))
+	}
+
+	const goToNext = () => {
+		setActiveIndex((prev) => (prev === demoOptions.length - 1 ? 0 : prev + 1))
+	}
+
+	const getPosition = (index: number): 'left' | 'center' | 'right' => {
+		if (index === activeIndex) return 'center'
+		if (
+			index === activeIndex - 1 ||
+			(activeIndex === 0 && index === demoOptions.length - 1)
+		)
+			return 'left'
+		return 'right'
+	}
+
+	const activeOption = demoOptions[activeIndex]
 
 	return (
 		<div className="space-y-6">
@@ -537,30 +576,64 @@ export default function DemoSelector() {
 				</div>
 			</motion.div>
 
-			{/* Demo Options Grid */}
+			{/* Carousel */}
 			<motion.div
-				className="grid gap-6"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ delay: 0.2 }}
+				className="relative"
 			>
-				{demoOptions.map((option, index) => (
-					<motion.div
-						key={option.id}
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.1 * (index + 1) }}
+				{/* Carousel Container */}
+				<div className="relative h-[420px] overflow-hidden">
+					{/* Navigation Arrows */}
+					<button
+						onClick={goToPrev}
+						className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/50 border border-white/20 text-white hover:bg-black/70 hover:border-purple-500/50 transition-all"
 					>
-						<DemoCard
-							option={option}
-							isExpanded={expandedId === option.id}
-							onToggle={() =>
-								setExpandedId(expandedId === option.id ? null : option.id)
-							}
+						<ChevronLeft className="w-6 h-6" />
+					</button>
+					<button
+						onClick={goToNext}
+						className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/50 border border-white/20 text-white hover:bg-black/70 hover:border-purple-500/50 transition-all"
+					>
+						<ChevronRight className="w-6 h-6" />
+					</button>
+
+					{/* Cards */}
+					<div className="relative h-full">
+						{demoOptions.map((option, index) => (
+							<CarouselCard
+								key={option.id}
+								option={option}
+								isActive={index === activeIndex}
+								position={getPosition(index)}
+								onClick={() => setActiveIndex(index)}
+							/>
+						))}
+					</div>
+				</div>
+
+				{/* Dots Indicator */}
+				<div className="flex items-center justify-center gap-2 mt-4">
+					{demoOptions.map((option, index) => (
+						<button
+							key={option.id}
+							onClick={() => setActiveIndex(index)}
+							className={cn(
+								'w-2 h-2 rounded-full transition-all',
+								index === activeIndex
+									? 'w-8 bg-purple-500'
+									: 'bg-white/30 hover:bg-white/50',
+							)}
 						/>
-					</motion.div>
-				))}
+					))}
+				</div>
 			</motion.div>
+
+			{/* Expanded Details */}
+			<AnimatePresence mode="wait">
+				<ExpandedDetails key={activeOption.id} option={activeOption} />
+			</AnimatePresence>
 
 			{/* Footer Note */}
 			<motion.div
