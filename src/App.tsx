@@ -24,9 +24,6 @@ const CommandExplorer = lazy(
 const AgentPlayground = lazy(
 	() => import('./components/learn/AgentPlayground'),
 )
-const PerformanceSimulator = lazy(
-	() => import('./components/learn/PerformanceSimulator'),
-)
 const QuizMode = lazy(() => import('./components/learn/QuizMode'))
 
 function SlideLoader() {
@@ -102,7 +99,6 @@ function App() {
 						<Route path="workflow" element={<WorkflowSimulator />} />
 						<Route path="commands" element={<CommandExplorer />} />
 						<Route path="agents" element={<AgentPlayground />} />
-						<Route path="roi" element={<PerformanceSimulator />} />
 						<Route path="quiz" element={<QuizMode />} />
 					</Route>
 
