@@ -12,7 +12,7 @@ import {
 	TrendingUp,
 	Users,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { cn } from '../../lib/utils'
 
 interface DemoOption {
@@ -311,9 +311,19 @@ function DemoCard({
 	onToggle: () => void
 }) {
 	const Icon = option.icon
+	const cardRef = useRef<HTMLDivElement>(null)
+
+	const handleCollapse = () => {
+		onToggle()
+		// Scroll to card after collapse animation starts
+		setTimeout(() => {
+			cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}, 50)
+	}
 
 	return (
 		<div
+			ref={cardRef}
 			className={cn(
 				'rounded-2xl border transition-all cursor-pointer overflow-hidden',
 				`bg-gradient-to-br ${option.gradient} ${option.borderColor}`,
@@ -447,7 +457,7 @@ function DemoCard({
 								<button
 									onClick={(e) => {
 										e.stopPropagation()
-										onToggle()
+										handleCollapse()
 									}}
 									className="text-sm text-muted-foreground hover:text-white transition-colors"
 								>
