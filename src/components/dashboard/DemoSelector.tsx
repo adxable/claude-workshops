@@ -317,9 +317,9 @@ function CarouselCard({
 	const Icon = option.icon
 
 	const variants = {
-		left: { x: '-75%', scale: 0.8, opacity: 0.5, zIndex: 1 },
+		left: { x: '-75%', scale: 0.8, opacity: 0.3, zIndex: 1 },
 		center: { x: '0%', scale: 1, opacity: 1, zIndex: 10 },
-		right: { x: '75%', scale: 0.8, opacity: 0.5, zIndex: 1 },
+		right: { x: '75%', scale: 0.8, opacity: 0.3, zIndex: 1 },
 	}
 
 	return (
