@@ -39,7 +39,7 @@ export default function GitWorkflowSlide() {
 			>
 				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/20 to-rose-500/20 text-orange-400 mb-4">
 					<GitCommit className="w-4 h-4" />
-					<span className="text-sm font-medium">Phase 6 & 7</span>
+					<span className="text-sm font-medium">Phase 5 & 6</span>
 				</div>
 				<h2 className="text-4xl md:text-5xl font-bold mb-2">
 					<span className="text-gradient">/commit</span> &{' '}

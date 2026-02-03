@@ -1,15 +1,17 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import {
-	Accessibility,
 	ChevronRight,
 	Code2,
 	Cpu,
-	FileText,
 	Gauge,
 	GitBranch,
 	Globe,
+	Lightbulb,
 	Monitor,
+	Play,
 	Search,
+	Shield,
+	Sparkles,
 	Wrench,
 	Zap,
 } from 'lucide-react'
@@ -20,14 +22,17 @@ import { cn } from '../../lib/utils'
 
 const iconMap: Record<string, React.ElementType> = {
 	explorer: Search,
-	'web-researcher': Globe,
-	refactorer: Wrench,
+	planner: Lightbulb,
+	implementer: Play,
+	verifier: Zap,
 	'code-reviewer': Code2,
-	'performance-auditor': Gauge,
 	'browser-tester': Monitor,
 	'git-automator': GitBranch,
-	'accessibility-tester': Accessibility,
-	'docs-generator': FileText,
+	'web-researcher': Globe,
+	'performance-auditor': Gauge,
+	'security-auditor': Shield,
+	'pattern-researcher': Sparkles,
+	refactorer: Wrench,
 }
 
 const modelInfo = {

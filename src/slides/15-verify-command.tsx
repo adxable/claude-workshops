@@ -5,6 +5,7 @@ import {
 	FileCode,
 	Hammer,
 	Loader2,
+	Monitor,
 	Package,
 	RefreshCw,
 	X,
@@ -15,6 +16,7 @@ const checks = [
 	{ name: 'TypeScript', command: 'tsc --noEmit', icon: FileCode },
 	{ name: 'Linter', command: 'biome lint', icon: Hammer },
 	{ name: 'Build', command: 'vite build', icon: Package },
+	{ name: 'Browser', command: 'visual check', icon: Monitor },
 ]
 
 export default function VerifyCommandSlide() {
@@ -23,32 +25,37 @@ export default function VerifyCommandSlide() {
 		'loading',
 		'pending',
 		'pending',
+		'pending',
 	])
 
 	useEffect(() => {
 		const timer1 = setTimeout(
-			() => setCheckStates(['pass', 'loading', 'pending']),
+			() => setCheckStates(['pass', 'loading', 'pending', 'pending']),
 			1000,
 		)
 		const timer2 = setTimeout(
-			() => setCheckStates(['pass', 'fail', 'pending']),
+			() => setCheckStates(['pass', 'fail', 'pending', 'pending']),
 			2000,
 		)
 		const timer3 = setTimeout(() => {
 			setIteration(2)
-			setCheckStates(['loading', 'pending', 'pending'])
+			setCheckStates(['loading', 'pending', 'pending', 'pending'])
 		}, 3000)
 		const timer4 = setTimeout(
-			() => setCheckStates(['pass', 'loading', 'pending']),
+			() => setCheckStates(['pass', 'loading', 'pending', 'pending']),
 			4000,
 		)
 		const timer5 = setTimeout(
-			() => setCheckStates(['pass', 'pass', 'loading']),
+			() => setCheckStates(['pass', 'pass', 'loading', 'pending']),
 			5000,
 		)
 		const timer6 = setTimeout(
-			() => setCheckStates(['pass', 'pass', 'pass']),
+			() => setCheckStates(['pass', 'pass', 'pass', 'loading']),
 			6000,
+		)
+		const timer7 = setTimeout(
+			() => setCheckStates(['pass', 'pass', 'pass', 'pass']),
+			7000,
 		)
 
 		return () => {
@@ -58,6 +65,7 @@ export default function VerifyCommandSlide() {
 			clearTimeout(timer4)
 			clearTimeout(timer5)
 			clearTimeout(timer6)
+			clearTimeout(timer7)
 		}
 	}, [])
 
@@ -71,7 +79,7 @@ export default function VerifyCommandSlide() {
 			>
 				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 text-green-400 mb-4">
 					<CheckCircle className="w-4 h-4" />
-					<span className="text-sm font-medium">Phase 4</span>
+					<span className="text-sm font-medium">Phase 3</span>
 				</div>
 				<h2 className="text-4xl md:text-5xl font-bold mb-2">
 					<span className="text-gradient">/verify</span>
@@ -194,7 +202,7 @@ export default function VerifyCommandSlide() {
 					</span>
 				</div>
 				<div className="p-3 rounded-lg bg-card border border-border">
-					<div className="font-medium mb-1">Optional Browser</div>
+					<div className="font-medium mb-1">Browser Check</div>
 					<span className="text-muted-foreground">Visual verification</span>
 				</div>
 			</motion.div>

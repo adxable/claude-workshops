@@ -42,7 +42,7 @@ export default function WorkflowDeepDiveSlide() {
 					<span className="text-sm font-medium">Deep Dive</span>
 				</div>
 				<h2 className="text-4xl md:text-5xl font-bold mb-2">
-					The <span className="text-gradient">7-Phase</span> Pipeline
+					The <span className="text-gradient">6-Phase</span> Pipeline
 				</h2>
 				<p className="text-muted-foreground">
 					Click each phase to understand what happens behind the scenes

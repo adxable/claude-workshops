@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion'
 import {
-	Accessibility,
 	Code2,
 	Cpu,
-	FileText,
 	Gauge,
 	GitBranch,
 	Globe,
+	Lightbulb,
 	Monitor,
+	Play,
 	Search,
+	Shield,
+	Sparkles,
 	Wrench,
 	Zap,
 } from 'lucide-react'
@@ -17,14 +19,17 @@ import { agents } from '../data/workflow-steps'
 
 const iconMap: Record<string, React.ElementType> = {
 	explorer: Search,
-	'web-researcher': Globe,
-	refactorer: Wrench,
+	planner: Lightbulb,
+	implementer: Play,
+	verifier: Zap,
 	'code-reviewer': Code2,
-	'performance-auditor': Gauge,
 	'browser-tester': Monitor,
 	'git-automator': GitBranch,
-	'accessibility-tester': Accessibility,
-	'docs-generator': FileText,
+	'web-researcher': Globe,
+	'performance-auditor': Gauge,
+	'security-auditor': Shield,
+	'pattern-researcher': Sparkles,
+	refactorer: Wrench,
 }
 
 const modelColors = {
@@ -61,7 +66,7 @@ export default function AgentsShowcaseSlide() {
 			>
 				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-400 mb-4">
 					<Cpu className="w-4 h-4" />
-					<span className="text-sm font-medium">9 Specialized Agents</span>
+					<span className="text-sm font-medium">12 Specialized Agents</span>
 				</div>
 				<h2 className="text-4xl md:text-5xl font-bold mb-2">
 					The <span className="text-gradient">Agent</span> Army
@@ -95,7 +100,7 @@ export default function AgentsShowcaseSlide() {
 			</motion.div>
 
 			{/* Agent grid */}
-			<div className="grid grid-cols-3 gap-3">
+			<div className="grid grid-cols-3 md:grid-cols-4 gap-3">
 				{agents.map((agent, i) => {
 					const Icon = iconMap[agent.id] || Cpu
 					const colors = modelColors[agent.model]

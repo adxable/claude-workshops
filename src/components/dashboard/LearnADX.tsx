@@ -4,7 +4,6 @@ import {
 	ChevronRight,
 	Cpu,
 	GraduationCap,
-	HelpCircle,
 	Sparkles,
 	Terminal,
 	Workflow,
@@ -31,7 +30,7 @@ const tabs: TabConfig[] = [
 		to: '/dashboard/learn/workflow',
 		label: 'Workflow',
 		icon: Workflow,
-		description: 'Step through the 8-phase pipeline',
+		description: 'Step through the 6-phase pipeline',
 	},
 	{
 		to: '/dashboard/learn/commands',
@@ -44,12 +43,6 @@ const tabs: TabConfig[] = [
 		label: 'Agents',
 		icon: Cpu,
 		description: 'Learn about specialized agents',
-	},
-	{
-		to: '/dashboard/learn/quiz',
-		label: 'Quiz',
-		icon: HelpCircle,
-		description: 'Test your knowledge',
 	},
 ]
 
@@ -91,7 +84,7 @@ export default function LearnADX() {
 				<div className="flex items-center gap-2">
 					<Sparkles className="w-4 h-4 text-amber-400" />
 					<span className="text-sm text-muted-foreground">
-						ADX Toolkit Workshop
+						Claude Code Workshop
 					</span>
 				</div>
 			</motion.div>
@@ -149,8 +142,7 @@ export default function LearnADX() {
 					<div className="flex items-center gap-2 text-muted-foreground">
 						<ChevronRight className="w-4 h-4 text-purple-400" />
 						<span>
-							Start with <code className="text-purple-400">/setup</code> for new
-							projects
+							Start with <code className="text-purple-400">/plan</code> to research your codebase
 						</span>
 					</div>
 					<span className="text-muted-foreground/50">|</span>
@@ -165,8 +157,8 @@ export default function LearnADX() {
 					<div className="flex items-center gap-2 text-muted-foreground">
 						<ChevronRight className="w-4 h-4 text-green-400" />
 						<span>
-							Agents validate their own work with{' '}
-							<code className="text-green-400">hooks</code>
+							<code className="text-green-400">12 agents</code> work together
+							in the workflow
 						</span>
 					</div>
 				</div>

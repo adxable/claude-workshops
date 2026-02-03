@@ -21,11 +21,11 @@ export const quizQuestions: QuizQuestion[] = [
 	{
 		id: 'q1',
 		question:
-			'What is the first command you should run when starting a new project with ADX?',
-		options: ['/plan', '/setup', '/ship', '/implement'],
+			'What is the first phase in the Claude Code workflow?',
+		options: ['/verify', '/plan', '/implement', '/review'],
 		correctIndex: 1,
 		explanation:
-			'/setup detects your stack and creates configuration files that enable context-aware assistance for all other commands.',
+			'/plan is the first phase - it researches your codebase and creates a detailed implementation plan before any code is written.',
 		category: 'workflow',
 	},
 	{
@@ -35,7 +35,7 @@ export const quizQuestions: QuizQuestion[] = [
 		options: ['/ralph', '/ship', '/implement', '/verify'],
 		correctIndex: 1,
 		explanation:
-			'/ship executes all 8 phases: setup → plan → implement → refactor → verify → review → commit → pr',
+			'/ship executes all 6 phases: plan → implement → verify → review → commit → pr',
 		category: 'commands',
 	},
 	{
@@ -43,31 +43,31 @@ export const quizQuestions: QuizQuestion[] = [
 		question: 'What does the /verify command do?',
 		options: [
 			'Creates a verification report',
-			'Runs TypeScript, linter, and build in a loop until all pass',
+			'Runs TypeScript, linter, build, and browser check in a loop',
 			'Verifies your GitHub credentials',
-			'Checks for security vulnerabilities',
+			'Only checks for security vulnerabilities',
 		],
 		correctIndex: 1,
 		explanation:
-			'/verify runs a loop (max 5 iterations) checking TypeScript, linter, and build, auto-fixing issues until everything passes.',
+			'/verify runs a loop (max iterations) checking TypeScript, linter, build, and browser visual verification, auto-fixing issues until everything passes.',
 		category: 'commands',
 	},
 	{
 		id: 'q4',
-		question: 'How many agents run in parallel during /review?',
+		question: 'How many agents run during /review?',
 		options: ['1', '2', '3', '5'],
-		correctIndex: 2,
+		correctIndex: 1,
 		explanation:
-			'/review spawns 3 agents in parallel: code-reviewer, performance-auditor, and browser-tester.',
+			'/review spawns 2 agents: code-reviewer and performance-auditor for code-specific review.',
 		category: 'agents',
 	},
 	{
 		id: 'q5',
-		question: 'Which agent model is used for the "explorer" agent?',
+		question: 'Which agent model is used for the "explorer" and "planner" agents?',
 		options: ['Haiku', 'Sonnet', 'Opus', 'GPT-4'],
 		correctIndex: 0,
 		explanation:
-			'Explorer uses Haiku because it needs to be fast and cheap for codebase searches. Haiku is optimized for speed.',
+			'Explorer and Planner use Haiku because they need to be fast and cheap for codebase searches and planning. Haiku is optimized for speed.',
 		category: 'agents',
 	},
 	{
@@ -100,17 +100,12 @@ export const quizQuestions: QuizQuestion[] = [
 	},
 	{
 		id: 'q8',
-		question: 'What does /ralph do differently from /ship?',
-		options: [
-			'It runs faster',
-			'It uses fewer agents',
-			'It loops autonomously until PR is created with error recovery',
-			'It skips the review phase',
-		],
+		question: 'How many specialized agents are available in the workflow?',
+		options: ['6', '9', '12', '15'],
 		correctIndex: 2,
 		explanation:
-			'/ralph is a fully autonomous "fire and forget" mode that loops until a PR is created, with built-in circuit breakers and error recovery.',
-		category: 'commands',
+			'The workflow includes 12 specialized agents: explorer, planner, implementer, verifier, code-reviewer, browser-tester, git-automator, web-researcher, performance-auditor, security-auditor, pattern-researcher, and refactorer.',
+		category: 'agents',
 	},
 	{
 		id: 'q9',
@@ -124,12 +119,12 @@ export const quizQuestions: QuizQuestion[] = [
 	},
 	{
 		id: 'q10',
-		question: 'What flag enables visual browser testing with /review?',
-		options: ['--test', '--visual', '--browser', '--ui'],
-		correctIndex: 2,
+		question: 'What is the purpose of the verifier agent?',
+		options: ['Visual UI testing', 'Type checks, linting, build, and tests', 'Code review', 'Git automation'],
+		correctIndex: 1,
 		explanation:
-			'The --browser flag enables the browser-tester agent to visually verify the UI, test interactions, and check responsive design.',
-		category: 'commands',
+			'The verifier agent runs type checking, linting, builds, and tests with auto-fix capabilities in an iterative loop.',
+		category: 'agents',
 	},
 ]
 
@@ -140,8 +135,8 @@ export const learningScenarios: LearningScenario[] = [
 		description:
 			'Implement JWT-based authentication with login/logout functionality',
 		task: 'Create a complete auth system with protected routes',
-		recommendedCommands: ['/setup', '/plan', '/ship'],
-		recommendedAgents: ['explorer', 'web-researcher', 'code-reviewer'],
+		recommendedCommands: ['/plan', '/implement', '/verify'],
+		recommendedAgents: ['planner', 'implementer', 'verifier', 'web-researcher'],
 		difficulty: 'intermediate',
 	},
 	{
@@ -150,8 +145,8 @@ export const learningScenarios: LearningScenario[] = [
 		description:
 			'The dashboard is rendering slowly with unnecessary re-renders',
 		task: 'Identify and fix performance bottlenecks',
-		recommendedCommands: ['/plan', '/implement', '/review --browser'],
-		recommendedAgents: ['explorer', 'performance-auditor', 'refactorer'],
+		recommendedCommands: ['/plan', '/implement', '/verify'],
+		recommendedAgents: ['explorer', 'performance-auditor', 'browser-tester'],
 		difficulty: 'intermediate',
 	},
 	{
@@ -159,8 +154,8 @@ export const learningScenarios: LearningScenario[] = [
 		title: 'Add Dark Mode',
 		description: 'Implement a theme system with dark/light mode toggle',
 		task: 'Create theme context and update all components',
-		recommendedCommands: ['/setup', '/ship --browser'],
-		recommendedAgents: ['explorer', 'browser-tester'],
+		recommendedCommands: ['/plan', '/ship'],
+		recommendedAgents: ['planner', 'implementer', 'browser-tester'],
 		difficulty: 'beginner',
 	},
 	{
@@ -169,7 +164,7 @@ export const learningScenarios: LearningScenario[] = [
 		description: 'Old codebase with any types, large files, and no tests',
 		task: 'Clean up the code while maintaining functionality',
 		recommendedCommands: ['/refactor', '/verify', '/review'],
-		recommendedAgents: ['refactorer', 'code-reviewer'],
+		recommendedAgents: ['refactorer', 'code-reviewer', 'verifier'],
 		difficulty: 'advanced',
 	},
 	{
@@ -178,26 +173,28 @@ export const learningScenarios: LearningScenario[] = [
 		description: 'Connect to external REST API with proper error handling',
 		task: 'Create API client with caching and retry logic',
 		recommendedCommands: ['/plan', '/implement', '/verify'],
-		recommendedAgents: ['explorer', 'web-researcher'],
+		recommendedAgents: ['planner', 'implementer', 'web-researcher'],
 		difficulty: 'intermediate',
+	},
+	{
+		id: 'scenario6',
+		title: 'Security Audit',
+		description: 'Review codebase for security vulnerabilities',
+		task: 'Identify and fix security issues',
+		recommendedCommands: ['/review'],
+		recommendedAgents: ['security-auditor', 'code-reviewer'],
+		difficulty: 'advanced',
 	},
 ]
 
 export const workflowTips = [
-	{
-		phase: 'setup',
-		tips: [
-			'Run /setup once when starting a new project',
-			'Re-run if you add major new libraries',
-			'Use "quick" mode for defaults: /setup quick',
-		],
-	},
 	{
 		phase: 'plan',
 		tips: [
 			'Be specific about what you want to build',
 			'Review the plan before implementing',
 			'Plans are saved in .claude/plans/ for reference',
+			'Planner agent researches codebase patterns first',
 		],
 	},
 	{
@@ -205,30 +202,25 @@ export const workflowTips = [
 		tips: [
 			'Pass the plan file path: /implement .claude/plans/plan-xyz.md',
 			'Let it finish before interrupting',
-			'Check type errors are fixed after each step',
-		],
-	},
-	{
-		phase: 'refactor',
-		tips: [
-			'Run on specific directories for focused cleanup',
-			'Great for removing technical debt',
-			'Verifies types after changes',
+			'Implementer agent loads relevant skills dynamically',
+			'Web-researcher is spawned automatically if stuck',
 		],
 	},
 	{
 		phase: 'verify',
 		tips: [
-			'Max 5 iterations prevents infinite loops',
+			'Runs TypeScript, linting, build, and browser check',
 			'Add URL path for browser testing: /verify /dashboard',
-			'Wait for all checks to pass before proceeding',
+			'Max iterations prevent infinite loops',
+			'Auto-fixes issues until everything passes',
 		],
 	},
 	{
 		phase: 'review',
 		tips: [
-			'Use --browser for visual verification',
-			'3 agents review in parallel for speed',
+			'Code-specific review with 2 agents in parallel',
+			'Code-reviewer checks patterns and type safety',
+			'Performance-auditor analyzes bundle size and re-renders',
 			'Check .claude/reviews/ for the report',
 		],
 	},
@@ -238,6 +230,7 @@ export const workflowTips = [
 			'Auto-generates conventional commit messages',
 			'Includes Co-Authored-By: Claude',
 			'Specify type if needed: /commit feat',
+			'Git-automator ensures proper formatting',
 		],
 	},
 	{
@@ -246,6 +239,7 @@ export const workflowTips = [
 			'Analyzes all branch commits',
 			'Pushes to remote automatically',
 			'Returns the PR link when done',
+			'Auto-generates description and test plan',
 		],
 	},
 ]
@@ -257,17 +251,23 @@ export const agentUseCases: Record<string, string[]> = {
 		'Locating similar implementations',
 		'Searching for patterns',
 	],
-	'web-researcher': [
-		'Debugging obscure errors',
-		'Finding library documentation',
-		'Researching best practices',
-		'Checking GitHub issues',
+	planner: [
+		'Creating implementation plans',
+		'Detecting task types (feature, bug, refactor)',
+		'Researching codebase patterns',
+		'Estimating file changes',
 	],
-	refactorer: [
-		'Removing any types',
-		'Splitting large components',
-		'Eliminating dead code',
-		'Improving code structure',
+	implementer: [
+		'Executing plan steps sequentially',
+		'Loading relevant skills dynamically',
+		'Creating and modifying files',
+		'Running validation after changes',
+	],
+	verifier: [
+		'Running TypeScript type checks',
+		'Executing linting with auto-fix',
+		'Building the project',
+		'Running test suites',
 	],
 	'code-reviewer': [
 		'Checking type safety',
@@ -275,17 +275,11 @@ export const agentUseCases: Record<string, string[]> = {
 		'Ensuring convention compliance',
 		'Finding potential bugs',
 	],
-	'performance-auditor': [
-		'Analyzing bundle size',
-		'Detecting unnecessary re-renders',
-		'Finding lazy loading opportunities',
-		'Checking memory usage',
-	],
 	'browser-tester': [
 		'Visual UI verification',
 		'Testing interactions',
 		'Checking responsive design',
-		'Screenshot comparisons',
+		'Error and loading state verification',
 	],
 	'git-automator': [
 		'Creating smart commits',
@@ -293,16 +287,34 @@ export const agentUseCases: Record<string, string[]> = {
 		'Opening pull requests',
 		'Handling rebases',
 	],
-	'accessibility-tester': [
-		'WCAG compliance checks',
-		'Keyboard navigation testing',
-		'Screen reader compatibility',
-		'Color contrast analysis',
+	'web-researcher': [
+		'Debugging obscure errors',
+		'Finding library documentation',
+		'Researching best practices',
+		'Checking GitHub issues',
 	],
-	'docs-generator': [
-		'Creating README files',
-		'Documenting components',
-		'Writing API docs',
-		'Adding JSDoc comments',
+	'performance-auditor': [
+		'Analyzing bundle size',
+		'Detecting unnecessary re-renders',
+		'Finding lazy loading opportunities',
+		'Runtime profiling with browser',
+	],
+	'security-auditor': [
+		'Detecting hardcoded secrets',
+		'Finding XSS/SQL injection risks',
+		'Auditing dependencies',
+		'Checking configuration security',
+	],
+	'pattern-researcher': [
+		'Discovering new patterns',
+		'Analyzing Claude Code ecosystem',
+		'Recommending improvements',
+		'Comparing approaches',
+	],
+	refactorer: [
+		'Removing any types',
+		'Splitting large components',
+		'Eliminating dead code',
+		'Applying project conventions',
 	],
 }

@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils'
 const tabs = [
 	{
 		to: '/dashboard/learn',
-		label: 'Learn ADX',
+		label: 'Learn Claude',
 		icon: GraduationCap,
 		description: 'Agentic Development',
 	},
@@ -101,7 +101,7 @@ export default function DashboardLayout() {
 							</div>
 							<div>
 								<h1 className="text-xl font-bold text-gradient">
-									ADX Workshop
+									Claude Workshop
 								</h1>
 								<p className="text-xs text-muted-foreground">
 									Claude Code Agentic Development

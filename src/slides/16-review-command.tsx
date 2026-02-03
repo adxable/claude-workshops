@@ -5,7 +5,6 @@ import {
 	Eye,
 	FileText,
 	Gauge,
-	Monitor,
 	Users,
 } from 'lucide-react'
 
@@ -28,15 +27,6 @@ const agents = [
 		border: 'border-amber-500/30',
 		checks: ['Bundle size', 'Re-renders', 'Lazy loading'],
 	},
-	{
-		name: 'Browser Tester',
-		model: 'Opus',
-		icon: Monitor,
-		color: 'text-orange-400',
-		bg: 'bg-orange-500/10',
-		border: 'border-orange-500/30',
-		checks: ['Visual verification', 'Interactions', 'Responsive'],
-	},
 ]
 
 export default function ReviewCommandSlide() {
@@ -50,13 +40,13 @@ export default function ReviewCommandSlide() {
 			>
 				<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 text-amber-400 mb-4">
 					<Eye className="w-4 h-4" />
-					<span className="text-sm font-medium">Phase 5</span>
+					<span className="text-sm font-medium">Phase 4</span>
 				</div>
 				<h2 className="text-4xl md:text-5xl font-bold mb-2">
 					<span className="text-gradient">/review</span>
 				</h2>
 				<p className="text-muted-foreground text-lg">
-					3 agents review in parallel
+					Code-specific review agents
 				</p>
 			</motion.div>
 
@@ -68,8 +58,7 @@ export default function ReviewCommandSlide() {
 				className="flex justify-center"
 			>
 				<code className="px-6 py-3 rounded-xl bg-card border border-border font-mono text-lg">
-					<span className="text-amber-400">/review</span>{' '}
-					<span className="text-green-400">--browser</span>
+					<span className="text-amber-400">/review</span>
 				</code>
 			</motion.div>
 
@@ -86,7 +75,7 @@ export default function ReviewCommandSlide() {
 				</span>
 			</motion.div>
 
-			<div className="grid md:grid-cols-3 gap-4">
+			<div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
 				{agents.map((agent, i) => (
 					<motion.div
 						key={agent.name}
@@ -132,7 +121,7 @@ export default function ReviewCommandSlide() {
 				<code className="text-sm text-muted-foreground">
 					.claude/reviews/review-2026-01-20.md
 				</code>
-				<div className="mt-3 grid grid-cols-3 gap-4 text-center text-sm">
+				<div className="mt-3 grid grid-cols-2 gap-4 text-center text-sm">
 					<div className="p-2 rounded bg-green-500/10 border border-green-500/30">
 						<div className="text-green-400 font-medium">Code</div>
 						<div className="text-xs text-muted-foreground">12 findings</div>
@@ -140,10 +129,6 @@ export default function ReviewCommandSlide() {
 					<div className="p-2 rounded bg-amber-500/10 border border-amber-500/30">
 						<div className="text-amber-400 font-medium">Performance</div>
 						<div className="text-xs text-muted-foreground">3 suggestions</div>
-					</div>
-					<div className="p-2 rounded bg-orange-500/10 border border-orange-500/30">
-						<div className="text-orange-400 font-medium">Visual</div>
-						<div className="text-xs text-muted-foreground">All passed</div>
 					</div>
 				</div>
 			</motion.div>

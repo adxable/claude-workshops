@@ -266,13 +266,13 @@ export default function AgenticIntro() {
 				</div>
 				<p className="text-muted-foreground mb-4">
 					The ADX Toolkit is a Claude Code plugin that implements a complete
-					8-phase development workflow. It provides:
+					6-phase development workflow. It provides:
 				</p>
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-3">
 					{[
 						{ label: 'Custom Commands', count: '8+' },
-						{ label: 'Specialized Agents', count: '12+' },
-						{ label: 'Workflow Phases', count: '8' },
+						{ label: 'Specialized Agents', count: '12' },
+						{ label: 'Workflow Phases', count: '6' },
 						{ label: 'Built-in Hooks', count: 'Yes' },
 					].map(({ label, count }) => (
 						<div
@@ -286,14 +286,12 @@ export default function AgenticIntro() {
 				</div>
 				<div className="mt-4 p-4 rounded-lg bg-black/30 border border-white/10">
 					<div className="text-sm text-muted-foreground mb-2">
-						The 8-phase workflow:
+						The 6-phase workflow:
 					</div>
 					<div className="flex flex-wrap gap-2">
 						{[
-							'Setup',
 							'Plan',
 							'Implement',
-							'Refactor',
 							'Verify',
 							'Review',
 							'Commit',
@@ -327,7 +325,7 @@ export default function AgenticIntro() {
 				<div className="flex justify-center gap-4 text-sm">
 					<div className="flex items-center gap-2 text-purple-400">
 						<ArrowRight className="w-4 h-4" />
-						<span>Workflow: See the 8 phases</span>
+						<span>Workflow: See the 6 phases</span>
 					</div>
 					<div className="flex items-center gap-2 text-blue-400">
 						<ArrowRight className="w-4 h-4" />

@@ -1,17 +1,5 @@
 import { motion } from 'framer-motion'
-import { BookOpen, Github, MessageCircle, Terminal } from 'lucide-react'
-
-const commands = [
-	{ cmd: '/ship', desc: 'Full autonomous pipeline' },
-	{ cmd: '/ralph', desc: 'Loop until done' },
-	{ cmd: '/plan', desc: 'Research and plan' },
-	{ cmd: '/implement', desc: 'Execute plan' },
-	{ cmd: '/refactor', desc: 'Clean code' },
-	{ cmd: '/verify', desc: 'Check quality' },
-	{ cmd: '/review', desc: 'Code review + browser' },
-	{ cmd: '/commit', desc: 'Smart commits' },
-	{ cmd: '/pr', desc: 'Create PR' },
-]
+import { BookOpen, Github, MessageCircle } from 'lucide-react'
 
 export default function QASlide() {
 	return (
@@ -30,7 +18,7 @@ export default function QASlide() {
 					<span className="text-gradient">Questions?</span>
 				</h2>
 				<p className="text-xl text-muted-foreground">
-					Let's discuss! Feel free to ask anything about ADX Toolkit
+					Let's discuss! Feel free to ask anything about Claude Code workflows
 				</p>
 			</motion.div>
 
@@ -43,30 +31,9 @@ export default function QASlide() {
 			>
 				<h3 className="text-2xl font-bold mb-2">Thank You!</h3>
 				<p className="text-muted-foreground">
-					Start using ADX Toolkit today and accelerate your development
-					workflow!
+					Start building your own Claude Code workflows and accelerate your
+					development!
 				</p>
-			</motion.div>
-
-			{/* Quick reference */}
-			<motion.div
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ delay: 0.3 }}
-				className="p-4 rounded-xl bg-card border border-border"
-			>
-				<div className="flex items-center gap-2 mb-3">
-					<Terminal className="w-4 h-4 text-purple-400" />
-					<h4 className="font-semibold">Quick Reference</h4>
-				</div>
-				<div className="grid grid-cols-3 gap-2">
-					{commands.map((item) => (
-						<div key={item.cmd} className="flex items-center gap-2 text-sm">
-							<code className="text-purple-400 font-mono">{item.cmd}</code>
-							<span className="text-muted-foreground text-xs">{item.desc}</span>
-						</div>
-					))}
-				</div>
 			</motion.div>
 
 			{/* Resources */}
@@ -122,7 +89,7 @@ export default function QASlide() {
 				<div className="flex flex-wrap justify-center gap-3">
 					{[
 						'One command ships features',
-						'9 agents work in parallel',
+						'12 agents work in parallel',
 						'Auto-fix verification loops',
 						'Browser testing included',
 					].map((takeaway) => (

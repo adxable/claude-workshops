@@ -33,29 +33,28 @@ export const coreCommands: Command[] = [
 		name: '/ship',
 		category: 'core',
 		description:
-			'Full autonomous pipeline: plan → implement → refactor → verify → review → commit → pr',
-		usage: '/ship <feature description> [--browser]',
-		example: '/ship "add user authentication with JWT" --browser',
+			'Full autonomous pipeline: plan → implement → verify → review → commit → pr',
+		usage: '/ship <feature description>',
+		example: '/ship "add user authentication with JWT"',
 		tips: [
-			'Use --browser for visual verification',
-			'Runs 7 phases automatically',
+			'Runs 6 phases automatically',
 			'Creates PR when complete',
+			'Browser testing included in verify phase',
 		],
-		flags: ['--browser'],
 	},
 	{
 		name: '/ralph',
 		category: 'core',
 		description:
 			'Fully autonomous loop - fire and forget development with automatic error recovery',
-		usage: '/ralph <description> [--browser] [--timeout <mins>] [--monitor]',
-		example: '/ralph "add dashboard with charts" --browser --monitor',
+		usage: '/ralph <description> [--timeout <mins>] [--monitor]',
+		example: '/ralph "add dashboard with charts" --monitor',
 		tips: [
 			'Best for overnight development',
 			'Loops until PR created',
 			'Has circuit breaker safeguards',
 		],
-		flags: ['--browser', '--timeout', '--monitor'],
+		flags: ['--timeout', '--monitor'],
 	},
 ]
 
@@ -69,7 +68,8 @@ export const devCommands: Command[] = [
 		tips: [
 			'Creates plan in .claude/plans/',
 			'Review before implementing',
-			'Explorer agent researches codebase',
+			'Planner agent researches codebase patterns',
+			'Detects task type automatically',
 		],
 	},
 	{
@@ -80,8 +80,9 @@ export const devCommands: Command[] = [
 		example: '/implement .claude/plans/plan-shopping-cart.md',
 		tips: [
 			'Follows plan sequentially',
-			'Uses web-researcher if stuck',
-			'Runs type check after changes',
+			'Spawns web-researcher if stuck',
+			'Loads relevant skills dynamically',
+			'Runs validation after changes',
 		],
 	},
 	{
@@ -94,6 +95,7 @@ export const devCommands: Command[] = [
 		tips: [
 			'Removes any types',
 			'Splits oversized components',
+			'Spawns explorer to find patterns first',
 			'Verifies types after changes',
 		],
 	},
@@ -104,28 +106,29 @@ export const qualityCommands: Command[] = [
 		name: '/verify',
 		category: 'quality',
 		description:
-			'Run full verification loop: TypeScript + ESLint + Build (max 5 iterations)',
-		usage: '/verify [url path for browser test]',
+			'Run full verification loop: TypeScript + Linter + Build + Browser check',
+		usage: '/verify <url path for browser test>',
 		example: '/verify /dashboard',
 		tips: [
 			'Loops until all checks pass',
 			'Auto-fixes issues',
-			'Optional browser testing',
+			'Includes browser visual verification',
+			'Max iterations prevent infinite loops',
 		],
 	},
 	{
 		name: '/review',
 		category: 'quality',
 		description:
-			'Code review with 3 parallel agents + optional browser verification',
-		usage: '/review [--browser | --browser-only]',
-		example: '/review --browser',
+			'Code-specific review with 2 parallel agents: code-reviewer + performance-auditor',
+		usage: '/review',
+		example: '/review',
 		tips: [
-			'3 agents review in parallel',
-			'--browser adds visual testing',
+			'2 agents review in parallel',
+			'Code-reviewer checks patterns and type safety',
+			'Performance-auditor analyzes bundle and re-renders',
 			'Creates report in .claude/reviews/',
 		],
-		flags: ['--browser', '--browser-only'],
 	},
 ]
 
@@ -153,6 +156,7 @@ export const gitCommands: Command[] = [
 			'Analyzes all branch commits',
 			'Pushes to remote automatically',
 			'Returns PR link',
+			'Auto-generates test plan',
 		],
 	},
 ]

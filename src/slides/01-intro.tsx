@@ -43,10 +43,10 @@ const colorMap = {
 }
 
 const learningPoints = [
-	'What is Claude Code and agentic development',
-	'The 8-phase ADX workflow (Setup → PR)',
-	'Self-validating agents with hooks',
-	'Specialized agents for every task',
+	'What is Claude Code and workflows',
+	'The 6-phase workflow (Plan → PR)',
+	'How to build your own workflows',
+	'Tips for solo development with AI',
 ]
 
 export default function IntroSlide() {
@@ -79,7 +79,7 @@ export default function IntroSlide() {
 				className="space-y-4"
 			>
 				<h1 className="text-5xl md:text-7xl font-bold">
-					<span className="text-gradient">ADX</span> Workshop
+					<span className="text-gradient">Claude</span> Workshop
 				</h1>
 				<p className="text-xl md:text-2xl text-muted-foreground max-w-2xl">
 					Claude Code Agentic Development Toolkit

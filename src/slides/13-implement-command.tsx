@@ -153,8 +153,7 @@ export default function ImplementCommandSlide() {
 				transition={{ delay: 0.7 }}
 				className="text-center text-sm text-muted-foreground"
 			>
-				Implementation respects your stack config from{' '}
-				<code className="text-indigo-400">/setup</code>
+				Claude follows the plan and adapts to your codebase patterns
 			</motion.div>
 		</div>
 	)
