@@ -13,6 +13,12 @@ const PresentationView = lazy(
 )
 const LiveDemo = lazy(() => import('./components/dashboard/LiveDemo'))
 const DemoSelector = lazy(() => import('./components/dashboard/DemoSelector'))
+const CountryComparison = lazy(
+	() => import('./components/countries/CountryComparison'),
+)
+const CryptoDashboard = lazy(
+	() => import('./components/dashboard/crypto/CryptoDashboard'),
+)
 
 // Learn sub-sections
 const AgenticIntro = lazy(() => import('./components/learn/AgenticIntro'))
@@ -111,6 +117,12 @@ function App() {
 
 					{/* Legacy single prompt demo */}
 					<Route path="demo-legacy" element={<LiveDemo />} />
+
+					{/* Country Comparison */}
+					<Route path="country-compare" element={<CountryComparison />} />
+
+					{/* Crypto Dashboard */}
+					<Route path="crypto" element={<CryptoDashboard />} />
 				</Route>
 
 				<Route path="/slide/:id" element={<SlideRoute />} />

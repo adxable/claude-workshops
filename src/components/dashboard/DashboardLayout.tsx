@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { GraduationCap, Presentation, Rocket, Sparkles, Zap } from 'lucide-react'
+import { Globe, GraduationCap, Presentation, Rocket, Sparkles, Zap } from 'lucide-react'
 import { Suspense } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { cn } from '../../lib/utils'
@@ -22,6 +22,12 @@ const tabs = [
 		label: 'Live Demo',
 		icon: Rocket,
 		description: 'Choose & Build',
+	},
+	{
+		to: '/dashboard/country-compare',
+		label: 'Countries',
+		icon: Globe,
+		description: 'Compare Nations',
 	},
 ]
 
